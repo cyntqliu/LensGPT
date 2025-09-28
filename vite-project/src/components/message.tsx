@@ -1,11 +1,15 @@
+import { memo } from 'react';
+
 type messageProps = {
     text: string;
     layerOutputs: Record<number, string>;
+    selected?: boolean;
 }
 
-function Message(props : messageProps) {
+const Message = memo(function Message(props: messageProps) {
     // displays a message in a bubble
-    return <div>{props.text}</div>;
-}
+    // there's a highlight around the bubble if the message is selected
+    return <div className="card">{props.text}</div>;
+});
 
 export default Message
