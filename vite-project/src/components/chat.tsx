@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Textarea } from "@/components/ui/textarea"
 import { type messageType } from "./types";
 import Message from "./message";
+import Textbox from "./textbox";
 
 type chatProps = {
     selectMsgHandler: (index: number) => void;
@@ -11,10 +11,15 @@ type chatProps = {
 function Chat(props : chatProps) {
     const [messages, setMessages] = useState<messageType[]>([]);
 
-    const chat = (text: string) => { 
+    const msgSubmitHandler = (text: string) => { 
         const newUserMessage: messageType = { text, layerOutputs: [] };
-        setMessages(prevMessages => [...prevMessages, newUserMessage]);
-        // have the chatbot respond to the new message
+        // setMessages(prevMessages => [...prevMessages, newUserMessage]);
+        fetch(`/api/chat?user_message=${text}`)
+            .then(response => response.json())
+            .then((data) => {
+                const newBotMessage: messageType = { text: data.message, layerOutputs: data.layer_outputs };
+                setMessages(prevMessages => [...prevMessages, newUserMessage, newBotMessage]);
+            });
     };
     
     return (
@@ -30,9 +35,7 @@ function Chat(props : chatProps) {
                         />
                     ))}
                 </div>
-                <div className="input-container">
-                    <Textarea placeholder="Type your message here..." className="chat-input" />
-                </div>
+                <Textbox submitHandler={msgSubmitHandler} />
             </div>
         </>
     );
