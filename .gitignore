@@ -1,0 +1,3 @@
+*.pyc
+lensgpt/src/lensgpt/__pycache__/*
+

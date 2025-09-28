@@ -30,4 +30,4 @@ def get_response(chatlog: list[Message], model):
     Returns:
         response: str - response from the chatbot
     '''
-    return ''
+    return 'hoo boy'

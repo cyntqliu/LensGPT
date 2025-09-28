@@ -4,8 +4,8 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent))
 
-from api.utils import *
-from api.model import Message
+from lensgpt.utils import *
+from lensgpt.model import Message
 
 
 def test_create_context_one():
